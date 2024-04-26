@@ -96,14 +96,6 @@ class OidcJwtHelper
     } catch (InvalidJwtTokenException $e) {
       throw new OidcAuthenticationException('Invalid ID token', $e);
     }
-
-    try {
-      $parsedAccessToken = self::parseToken($accessToken);
-      $this->verifyToken($issuer, $jwksUri, OidcTokenType::ACCESS, $parsedAccessToken, false);
-    } catch (InvalidJwtTokenException) {
-      // An access token is not required to be a JWT token.
-      // If it cannot be parsed as token, ignore it and skip validation
-    }
   }
 
   /**
